@@ -103,7 +103,8 @@ public class InventoryArchetypes {
     public static final InventoryArchetype DISPENSER = DummyObjectProvider.createFor(InventoryArchetype.class, "dispenser");
 
     /**
-     * A Workbench. 3x3 + 1 Output
+     * A Workbench. 3x3 + 1 Output.
+     * This Archetype requires a Player as Carrier.
      */
     public static final InventoryArchetype WORKBENCH = DummyObjectProvider.createFor(InventoryArchetype.class, "workbench");
 
@@ -116,11 +117,13 @@ public class InventoryArchetypes {
 
     /**
      * A EnchantingTable. 2 Slots
+     * This Archetype requires a Player as Carrier.
      */
     public static final InventoryArchetype ENCHANTING_TABLE = DummyObjectProvider.createFor(InventoryArchetype.class, "enchanting_table");
 
     /**
      * A Anvil. 3 Slots
+     * This Archetype requires a Player as Carrier.
      */
     public static final InventoryArchetype ANVIL = DummyObjectProvider.createFor(InventoryArchetype.class, "anvil");
 
