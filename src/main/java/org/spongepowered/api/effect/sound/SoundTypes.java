@@ -207,6 +207,8 @@ public final class SoundTypes {
 
     public static final SoundType BLOCK_PORTAL_TRIGGER = DummyObjectProvider.createFor(SoundType.class, "BLOCK_PORTAL_TRIGGER");
 
+    public static final SoundType BLOCK_PUMPKIN_CARVE = DummyObjectProvider.createFor(SoundType.class, "BLOCK_PUMPKIN_CARVE");
+
     public static final SoundType BLOCK_REDSTONE_TORCH_BURNOUT = DummyObjectProvider.createFor(SoundType.class, "BLOCK_REDSTONE_TORCH_BURNOUT");
 
     public static final SoundType BLOCK_SAND_BREAK = DummyObjectProvider.createFor(SoundType.class, "BLOCK_SAND_BREAK");
