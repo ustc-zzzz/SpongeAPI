@@ -24,56 +24,14 @@
  */
 package org.spongepowered.api.item.inventory.property;
 
-import org.spongepowered.api.data.Property;
-import org.spongepowered.api.util.Coerce;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.item.inventory.InventoryProperty;
+import org.spongepowered.api.util.ResettableBuilder;
 
 /**
  * A generic String property for an inventory.
  */
-public class StringProperty extends AbstractInventoryProperty<String, String> {
-
-    /**
-     * Create a new {@link StringProperty} for matching the specified value.
-     * 
-     * @param value the value to match
-     */
-    public StringProperty(String value) {
-        super(value);
-    }
-
-    /**
-     * Create a new {@link StringProperty} for matching the specified value
-     * with the specified operator.
-     * 
-     * @param value the value to match
-     * @param operator the operator to use when comparing with other properties
-     */
-    public StringProperty(String value, Operator operator) {
-        super(value, operator);
-    }
-
-    /**
-     * Create a new {@link StringProperty} for matching the specified value
-     * with the specified operator.
-     * 
-     * @param value the value to match
-     * @param operator the operator to use when comparing with other properties
-     */
-    public StringProperty(Object value, Operator operator) {
-        super(Coerce.toString(value), operator);
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    @Override
-    public int compareTo(Property<?, ?> other) {
-        if (other == null) {
-            return 1;
-        }
-
-        return this.getValue().compareTo(Coerce.toString(other.getValue()));
-    }
+public interface StringProperty extends InventoryProperty<String, String> {
 
     /**
      * Create a {@link StringProperty} which matches {@link StringProperty}
@@ -82,8 +40,8 @@ public class StringProperty extends AbstractInventoryProperty<String, String> {
      * @param value the value to match
      * @return new property
      */
-    public static StringProperty of(Object value) {
-        return new StringProperty(value, Operator.EQUAL);
+    static StringProperty of(Object value) {
+        return builder().value(value).operator(Operator.EQUAL).build();
     }
 
     /**
@@ -93,8 +51,8 @@ public class StringProperty extends AbstractInventoryProperty<String, String> {
      * @param value the value to match
      * @return new property
      */
-    public static StringProperty not(Object value) {
-        return new StringProperty(value, Operator.NOTEQUAL);
+    static StringProperty not(Object value) {
+        return builder().value(value).operator(Operator.NOTEQUAL).build();
     }
 
     /**
@@ -104,8 +62,8 @@ public class StringProperty extends AbstractInventoryProperty<String, String> {
      * @param value the value to match
      * @return new property
      */
-    public static StringProperty greaterThan(Object value) {
-        return new StringProperty(value, Operator.GREATER);
+    static StringProperty greaterThan(Object value) {
+        return builder().value(value).operator(Operator.GREATER).build();
     }
 
     /**
@@ -116,8 +74,8 @@ public class StringProperty extends AbstractInventoryProperty<String, String> {
      * @param value the value to match
      * @return new property
      */
-    public static StringProperty greaterThanOrEqual(Object value) {
-        return new StringProperty(value, Operator.GEQUAL);
+    static StringProperty greaterThanOrEqual(Object value) {
+        return builder().value(value).operator(Operator.GEQUAL).build();
     }
 
     /**
@@ -127,8 +85,8 @@ public class StringProperty extends AbstractInventoryProperty<String, String> {
      * @param value the value to match
      * @return new property
      */
-    public static StringProperty lessThan(Object value) {
-        return new StringProperty(value, Operator.LESS);
+    static StringProperty lessThan(Object value) {
+        return builder().value(value).operator(Operator.LESS).build();
     }
 
     /**
@@ -138,8 +96,48 @@ public class StringProperty extends AbstractInventoryProperty<String, String> {
      * @param value the value to match
      * @return new property
      */
-    public static StringProperty lessThanOrEqual(Object value) {
-        return new StringProperty(value, Operator.LEQUAL);
+    static StringProperty lessThanOrEqual(Object value) {
+        return builder().value(value).operator(Operator.LEQUAL).build();
+    }
+
+    /**
+     * Creates a new {@link Builder} to create {@link StringProperty}s.
+     *
+     * @return The new builder
+     */
+    static Builder builder() {
+        return Sponge.getRegistry().createBuilder(Builder.class);
+    }
+
+    /**
+     * Represents a builder class to create {@link StringProperty}s.
+     *
+     * @see StringProperty
+     */
+    interface Builder extends ResettableBuilder<StringProperty, Builder> {
+
+        /**
+         * Sets the value.
+         *
+         * @param value The value
+         * @return This builder
+         */
+        Builder value(final Object value);
+
+        /**
+         * Sets the operator.
+         *
+         * @param operator The operator
+         * @return This builder
+         */
+        Builder operator(final Operator operator);
+
+        /**
+         * Build the string property from the values in this builder.
+         *
+         * @return The string property
+         */
+        StringProperty build();
     }
 
 }

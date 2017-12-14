@@ -24,58 +24,16 @@
  */
 package org.spongepowered.api.item.inventory.property;
 
-import org.spongepowered.api.data.Property;
-import org.spongepowered.api.util.Coerce;
+import org.spongepowered.api.Sponge;
+import org.spongepowered.api.item.inventory.InventoryProperty;
 import org.spongepowered.api.util.Direction;
+import org.spongepowered.api.util.ResettableBuilder;
 
 /**
  * property which represents a "side" for a particular slot, for use in querying
  * "sided inventories".
  */
-public class SlotSide extends AbstractInventoryProperty<String, Direction> {
-
-    /**
-     * Create a new SlotSide property for matching the specified value.
-     * 
-     * @param value the value to match
-     */
-    public SlotSide(Direction value) {
-        super(value);
-    }
-
-    /**
-     * Create a new SlotSide property for matching the specified value with the
-     * specified operator.
-     * 
-     * @param value the value to match
-     * @param operator the operator to use when comparing with other properties
-     */
-    public SlotSide(Direction value, Operator operator) {
-        super(value, operator);
-    }
-
-    /**
-     * Create a new SlotSide property for matching the specified value with the
-     * specified operator.
-     * 
-     * @param value the value to match
-     * @param operator the operator to use when comparing with other properties
-     */
-    public SlotSide(Object value, Operator operator) {
-        super(Coerce.<Direction>toEnum(value, Direction.class, Direction.NONE), operator);
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    @Override
-    public int compareTo(Property<?, ?> other) {
-        if (other == null) {
-            return 1;
-        }
-
-        return this.getValue().compareTo(Coerce.toEnum(other.getValue(), Direction.class, Direction.NONE));
-    }
+public interface SlotSide extends InventoryProperty<String, Direction> {
 
     /**
      * Create a SlotSide property which matches SlotSide properties with equal
@@ -84,8 +42,8 @@ public class SlotSide extends AbstractInventoryProperty<String, Direction> {
      * @param value the value to match
      * @return new property
      */
-    public static SlotSide of(Object value) {
-        return new SlotSide(value, Operator.EQUAL);
+    static SlotSide of(Object value) {
+        return builder().value(value).operator(Operator.EQUAL).build();
     }
 
     /**
@@ -95,8 +53,48 @@ public class SlotSide extends AbstractInventoryProperty<String, Direction> {
      * @param value the value to match
      * @return new property
      */
-    public static SlotSide not(Object value) {
-        return new SlotSide(value, Operator.NOTEQUAL);
+    static SlotSide not(Object value) {
+        return builder().value(value).operator(Operator.NOTEQUAL).build();
+    }
+
+    /**
+     * Creates a new {@link Builder} to create {@link SlotSide}s.
+     *
+     * @return The new builder
+     */
+    static Builder builder() {
+        return Sponge.getRegistry().createBuilder(Builder.class);
+    }
+
+    /**
+     * Represents a builder class to create {@link SlotPos}s.
+     *
+     * @see SlotPos
+     */
+    interface Builder extends ResettableBuilder<SlotSide, Builder> {
+
+        /**
+         * Sets the value.
+         *
+         * @param value The value
+         * @return This builder
+         */
+        Builder value(final Object value);
+
+        /**
+         * Sets the operator.
+         *
+         * @param operator The operator
+         * @return This builder
+         */
+        Builder operator(final Operator operator);
+
+        /**
+         * Build the slot side from the values in this builder.
+         *
+         * @return The slot side
+         */
+        SlotSide build();
     }
 
 }
