@@ -99,6 +99,12 @@ public final class Keys {
 
     // SORTFIELDS:ON
 
+    public static final Key<MutableBoundedValue<Double>> MINECART_SWIFTNESS = KeyFactory.fake("MINECART_SWIFTNESS");
+    public static final Key<Value<Boolean>> MINECART_SLOWS_WHEN_EMPTY = KeyFactory.fake("MINECART_SLOWS_WHEN_EMPTY");
+    public static final Key<Value<Vector3d>> MINECART_AIRBORNE_VELOCITY = KeyFactory.fake("MINECART_AIRBORNE_VELOCITY");
+    public static final Key<Value<Vector3d>> MINECART_DERAILED_VELOCITY = KeyFactory.fake("MINECART_DERAILED_VELOCITY");
+
+
     /**
      * Represents the {@link Key} for the absoprtion amount of any {@link Living}
      * entity.
