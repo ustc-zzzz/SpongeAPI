@@ -41,9 +41,6 @@ import java.util.Set;
  * While any {@link Text} can be added to a team, certain {@link Text}s convey a special
  * meaning.</p>
  *
- * <p>Examples of this include players, whose names gain the prefix and suffix
- * of the team they are on.</p>
- *
  * <p>With the exception of {@link #getNameTagVisibility()} (which is handled client-side),
  * all of the team options require players to have the same team object (and by
  * extension, the same scoreboard).
@@ -111,38 +108,6 @@ public interface Team {
      * @param color The team color
      */
     void setColor(TextColor color);
-
-    /**
-     * Gets the prefix prepended to the display name of users on this team.
-     *
-     * @return The prefix for this team
-     */
-    Text getPrefix();
-
-    /**
-     * Sets the prefix prepended to the display name of users on this team.
-     *
-     * @param prefix The new prefix for this team
-     * @throws IllegalArgumentException If prefix is longer than 16
-     *     characters
-     */
-    void setPrefix(Text prefix) throws IllegalArgumentException;
-
-    /**
-     * Gets the suffix appended to the display name of users on this team.
-     *
-     * @return The team's current suffix
-     */
-    Text getSuffix();
-
-    /**
-     * Sets the suffix appended to the display name of users on this team.
-     *
-     * @param suffix The new suffix for this team.
-     * @throws IllegalArgumentException If suffix is longer than 16
-     *     characters (in its legacy representation)
-     */
-    void setSuffix(Text suffix) throws IllegalArgumentException;
 
     /**
      * Gets whether friendly fire is enabled.
@@ -316,32 +281,6 @@ public interface Team {
          *     characters
          */
         Builder displayName(Text displayName) throws IllegalArgumentException;
-
-        /**
-         * Sets the prefix prepended to the display name of users on the
-         * {@link Team}.
-         *
-         * <p>Display names may be truncated in order to meet an
-         * implementation-defined length limit. In Vanilla, this is sixteen
-         * characters.</p>
-         *
-         * @param prefix The new prefix for the {@link Team}
-         * @return This builder
-         */
-        Builder prefix(Text prefix);
-
-        /**
-         * Sets the suffix appended to the display name of users on the
-         * {@link Team}.
-         *
-         * <p>Display names may be truncated in order to meet an
-         * implementation-defined length limit. In Vanilla, this is sixteen
-         * characters.</p>
-         *
-         * @param suffix The new suffix for the {@link Team}.
-         * @return This builder
-         */
-        Builder suffix(Text suffix);
 
         /**
          * Sets whether friendly fire is enabled for the {@link Team}.
