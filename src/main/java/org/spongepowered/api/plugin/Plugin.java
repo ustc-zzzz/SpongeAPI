@@ -101,4 +101,13 @@ public @interface Plugin {
      */
     String[] authors() default {};
 
+    /**
+     * The constructor of the plugin.
+     *
+     * <p>A value of {@link PluginConstructor} denotes "use default".</p>
+     *
+     * @return The constructor
+     */
+    Class<? extends PluginConstructor> constructor() default PluginConstructor.class;
+
 }
